@@ -1,7 +1,6 @@
-require 'paperclip'
 require 'rack/raw_upload'
 require "rich/authorize"
-    
+
 module Rich
   class Engine < Rails::Engine
     isolate_namespace Rich
