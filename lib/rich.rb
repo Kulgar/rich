@@ -67,7 +67,7 @@ module Rich
   @@editor = {
     :height => 400,
     :stylesSet  =>  [],
-    :extraPlugins => 'stylesheetparser,richfile,mediaembed,showblocks',
+    :extraPlugins => 'stylesheetparser,richfile,embed,showblocks',
     :removePlugins => 'scayt,image,forms',
     :contentsCss => :default,
     :removeDialogTabs => 'link:advanced;link:target',
@@ -77,10 +77,11 @@ module Rich
     :toolbar => [%w(Styles Format Font FontSize), %w(Bold Italic Underline Strike Subscript Superscript),
                  %w(JustifyLeft JustifyCenter JustifyRight JustifyBlock), %w(TextColor BGColor),
                  %w(RemoveFormat), %w(NumberedList BulletedList Blockquote), %w(Link Unlink),
-                 %w(richImage richFile MediaEmbed), %w(Source ShowBlocks)],
+                 %w(richImage richFile Embed), %w(Source ShowBlocks)],
     :language => I18n.default_locale,
     :richBrowserUrl => '/rich/files/',
-    :uiColor => '#f4f4f4'
+    :uiColor => '#f4f4f4',
+    :embed_provider => '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}'
   }
   # End configuration defaults
 
@@ -126,7 +127,7 @@ module Rich
     end
 
     unless editor_options[:allow_embeds]
-      editor_options[:toolbar].map{|a| a.delete 'MediaEmbed'; a}
+      editor_options[:toolbar].map{|a| a.delete 'Embed'; a}
     end
 
     # object scoping

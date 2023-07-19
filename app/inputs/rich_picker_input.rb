@@ -97,7 +97,7 @@ if Object.const_defined?("SimpleForm")
   class RichPickerInput < SimpleForm::Inputs::StringInput
     attr_reader :editor_options, :dom_id
 
-    def input
+    def input(wrapper_options)
       @editor_options = Rich.options(options[:config], object_name, object.id)
       @dom_id = "#{object_name}_#{attribute_name}"
 

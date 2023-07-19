@@ -208,7 +208,7 @@ Non-image uploads also work from within the file picker when you pass in the <tt
 
 === Media embedding (Youtube, Vimeo, etc.)
 
-Set <tt>:allow_embeds</tt> to <tt>true</tt> to enable an extra button on the CKEditor toolbar that enables you to insert embed code. This works by virtue of the MediaEmbed plugin for CKEditor. It's not pretty, but it works.
+Set <tt>:allow_embeds</tt> to <tt>true</tt> to enable an extra button on the CKEditor toolbar that enables you to insert embed code. This works by virtue of the embed plugin for CKEditor. It's not pretty, but it works.
 
 === Scoping (filtering in the file manager)
 

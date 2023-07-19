@@ -24,7 +24,7 @@ end
 
 if Object.const_defined?("SimpleForm")
   class RichInput < SimpleForm::Inputs::TextInput
-    def input
+    def input(wrapper_options)
       scope_type = object.class.name.parameterize.underscore
       scope_id = object.try(:id)
       editor_options = Rich.options(options[:config], scope_type, scope_id)
