@@ -1,5 +1,6 @@
 fr:
   available_styles: "Styles"
+  dropzone: "Glissez des fichiers ici ou cliquez sur cette zone"
   upload_a_file: "Envoyer un fichier"
   insert_one: "Insérer un seul fichier"
   insert_one_tip: "Insérer un seul fichier"

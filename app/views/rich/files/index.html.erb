@@ -27,19 +27,21 @@
 
 </header>
 
-<div id="legacy-form"><%= form_for(@rich_asset, :url => files_path) do |f| %>
-  <p><%= f.file_field :rich_file%></p>
-  <%= f.submit("Upload") %>
-<% end %>
-</div>
 
-<ul id="items">
-
+<ul id="rich-items">
+  <% url = files_path(simplified_type: params[:type], scoped: params[:scoped], scope_type: params[:scope_type], scope_id: params[:scope_id]) %>
   <li id="uploadBlock">
-    <div id="upload" class="qq-upload-button placeholder">
-      <div class="spinner"></div>
-    </div>
-    <p><%= t(:upload_a_file) %></p>
+    <%= form_for(@rich_asset, url: url, html: { id: "file-upload-form", class: "rich-dropzone" }) do |f| %>
+      <div class="fallback">
+        <%= f.file_field :file %>
+        <%= f.submit("Upload") %>
+      </div>
+      <div class="dz-default dz-message">
+        <button class="dz-button" type="button">
+          <%= t(:dropzone) %>
+        </button>
+      </div>
+    <% end %>
   </li>
 
 	<%= render :partial => "file", :collection => @items, :as => :file %>

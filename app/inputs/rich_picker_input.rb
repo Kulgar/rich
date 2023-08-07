@@ -174,7 +174,7 @@ if Object.const_defined?("SimpleForm")
     end
 
     def preview
-      return '' if rich_file.nil? || editor_options[:type] == 'file'
+      return '' if editor_options[:type] == 'file'
 
       path = preview_image_path
       klass = "class='rich-image-preview'"

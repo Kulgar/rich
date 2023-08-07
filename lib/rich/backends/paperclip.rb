@@ -25,7 +25,7 @@ module Rich
       end
 
       def set_styles
-        if self.simplified_type=="image"
+        if self.simplified_type == "image"
           Rich.image_styles
         else
           {}

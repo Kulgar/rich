@@ -60,21 +60,34 @@ module Rich
       end
 
       # use the file from Rack Raw Upload
-      file_params = params[:file] || params[:qqfile]
+      file_params = params[:rich_file].present? ? params[:rich_file][:file] : params[:file]
+
       if(file_params)
         file_params.content_type = Mime::Type.lookup_by_extension(file_params.original_filename.split('.').last.to_sym)
         @file.rich_file = file_params
       end
 
-      if @file.save
-        response = { :success => true, :rich_id => @file.id }
-      else
-        response = { :success => false,
-                     :error => "Could not upload your file:\n- "+@file.errors.to_a[-1].to_s,
-                     :params => params.inspect }
+      respond_to do |format|
+        if @file.save
+          format.html { render partial: "rich/files/file", locals: { file: @file }, layout: false }
+          format.json { render json: {
+            success: true,
+            rich_id: @file.id,
+            file_html: render_to_string(
+                partial: "rich/files/file",
+                formats: :html,
+                layout: false,
+                locals: { file: @file }
+              )
+            }
+          }
+        else
+          format.html { render plain: "Error #{@file.errors.to_a[-1].to_s}", status: :unprocessable_entity }
+          format.json { render json: { :success => false,
+          :error => "Could not upload your file:\n- "+ @file.errors.to_a[-1].to_s,
+          :params => params.inspect }, status: :unprocessable_entity }
+        end
       end
-
-      render :json => response, :content_type => "text/html"
     end
 
     def update

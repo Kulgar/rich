@@ -50,8 +50,8 @@ rich.Browser.prototype = {
 		this._options.loading = loading;
 
 		if(loading == true) {
-			// $('#loading').css({visibility: 'visible'});
-			$('#loading').fadeIn();
+			$('#loading').css({opacity: '1'});
+			$('#loading').show();
 		} else {
 			$('#loading').fadeOut();
 		}
@@ -85,11 +85,11 @@ rich.Browser.prototype = {
       if(this._options.viewModeGrid == true) {
         $('#view-grid').hide();
         $('#view-list').show();
-        $('#items').addClass('list');
+        $('#rich-items').addClass('list');
       } else {
         $('#view-grid').show();
         $('#view-list').hide();
-        $('#items').removeClass('list');
+        $('#rich-items').removeClass('list');
       }
     },
 
@@ -142,7 +142,6 @@ rich.Browser.prototype = {
 	},
 
   performSearch: function(query) {
-    this.showLoadingIconAndRefreshList();
     this._options.searchQuery = query;
 
     var self = this;
@@ -167,7 +166,7 @@ rich.Browser.prototype = {
     this.setLoading(true);
     this._options.currentPage = 1;
     this._options.reachedBottom = false;
-    $('#items li:not(#uploadBlock)').remove();
+    $('#rich-items li:not(#uploadBlock)').remove();
   },
 
 	loadNextPage: function() {
@@ -269,7 +268,7 @@ $(function(){
 	});
 
 	// hook up item insertion
-	$('body').on('click', '#items li img', function(e){
+	$('body').on('click', '#rich-items li img', function(e){
 		browser.selectItem(e.target);
 	});
 
@@ -283,13 +282,16 @@ $(function(){
   $('#rich-search input').keyup(function() {
     clearTimeout(richSearchTimeout);
     var input = this;
+
+    browser.showLoadingIconAndRefreshList();
+
     richSearchTimeout = setTimeout(function() {
       browser.performSearch($(input).val());
     }, 1000);
   });
 
   // filename update
-  $('body').on('click', '#items li:not(#uploadBlock) p', function() {
+  $('body').on('click', '#rich-items li:not(#uploadBlock) p', function() {
     browser.showNameEditInput($(this));
   });
 

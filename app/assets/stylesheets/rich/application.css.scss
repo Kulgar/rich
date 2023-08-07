@@ -14,6 +14,7 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
+ *= require dropzone
  *= require_tree ./mixins
 */
 
@@ -58,10 +59,6 @@ $fontSizeLarge: 16px;
 	-webkit-box-shadow: $x $y $blur $color;
 }
 
-@-webkit-keyframes spinner {
-  from {-webkit-transform:rotate(0deg);}
-  to {-webkit-transform:rotate(360deg);}
-}
 
 // the meat
 *, html, body {
@@ -73,10 +70,6 @@ $fontSizeLarge: 16px;
 	-moz-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-}
-
-#legacy-form {
-	display: none;
 }
 
 header {
@@ -98,7 +91,7 @@ header {
     width: 200px;
     padding: 5px;
     border: 1px solid lightGray;
-    border-radius: 3px;
+    @include rounded(3px);
   }
 }
 
@@ -154,13 +147,13 @@ header {
 }
 
 // Default thumbnail view
-#items {
+#rich-items {
 	list-style: none;
-	margin: 0 0 0 $margin;
+	margin: 0 $margin 0 $margin;
 	padding: 0;
 	padding-top: $headerHeight + $margin + 1;
 
-	li {
+	li.rich-item {
     position: relative;
 		width: $imageSize;
 		height: $imageSize + $margin;
@@ -204,38 +197,6 @@ header {
 			@include box-shadow(0, 0, 4px, rgb(58,194,207))
 		}
 
-		.spinner {
-			opacity: 0.3;
-			margin-left: ($imageSize - 2)/2 - 32/2;
-			margin-top: 31px;
-			width: 32px;
-			height: 32px;
-			background: image-url('rich/plus.png') no-repeat top center;
-		}
-
-		#upload .spinner {
-			opacity: 1;
-		}
-
-		.progress .progress-bar {
-			background: $subtle;
-			height: $imageSize - 2;
-			float: left;
-		}
-
-		.progress .spinning {
-		  -webkit-animation-name: spinner;
-		  -webkit-animation-duration:0.75s;
-		  -webkit-animation-iteration-count:infinite;
-		  -webkit-animation-timing-function:linear;
-		}
-
-		.progress .spinner.error {
-			opacity: 1;
-			background-image: image-url('rich/plus-red.png');
-			-webkit-transform: rotate(45deg);
-		}
-
 		p {
 			font-size: 10px;
 			margin: 0;
@@ -262,7 +223,7 @@ header {
       input {
         position: relative;
         padding: 2px 3px;
-        border-radius: 3px;
+        @include rounded(3px);
         border: 1px solid lightGray;
         z-index: 10;
       }
@@ -289,22 +250,28 @@ header {
 
 	}
 
-	#uploadBlock:hover .placeholder .spinner {
-		background-position: 0 -32px;
-	}
+  li#uploadBlock {
+    float: none;
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 
+  .rich-dropzone {
+    padding: 10px;
+    background-color: #fafafa;
+    border: none;
+    @include rounded();
+
+	  @include inset-box-shadow(0, 0, 6px, rgba(0,0,0,0.1));
+  }
 }
 
 // Only for grid view
-#items:not(.list) {
+#rich-items:not(.list) {
 
-  li#uploadBlock {
-    p {
-      display: none;
-    }
-  }
-
-  li:not(#uploadBlock) {
+  li.rich-item {
 
     &:hover p {
       position: relative;
@@ -313,7 +280,7 @@ header {
       height: auto;
       padding: 0px 3px;
       border: 1px solid lightGray;
-      border-radius: 3px;
+      @include rounded(3px);
       z-index: 10;
     }
 
@@ -338,9 +305,9 @@ header {
 }
 
 // Condensed list view
-#items.list {
+#rich-items.list {
 
-  li {
+  li.rich-item {
     width: auto;
     height: 32px;
     float: none;
@@ -354,19 +321,6 @@ header {
       border: none;
     }
 
-    .spinner {
-      margin: 0;
-    }
-
-    .progress .progress-bar {
-      background: $light;
-      height: 4px;
-      float: left;
-      @include rounded;
-      margin-top: 28px;
-    }
-
-
     p {
       color: $dark;
       font-size: 14px;
@@ -377,7 +331,7 @@ header {
       line-height: 32px;
       float: left;
       cursor: default;
-      border-radius: 3px;
+      @include rounded(3px);
     }
 
     form {
@@ -400,10 +354,6 @@ header {
         height: $margin;
         background: image-url('rich/x-red.png') no-repeat right ($margin / 2 - 5);
         opacity: 0.1;
-    }
-
-    #uploadBlock:hover .placeholder .spinner {
-      background-position: 0 0px;
     }
 
   }

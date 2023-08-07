@@ -168,7 +168,6 @@ module Rich
     #puts "matching:" + mime + " TO " + simplified_type
 
     false # assume the worst
-
     if simplified_type == "image"
       if allowed_image_types.include?(mime)
         true

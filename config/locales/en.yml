@@ -1,5 +1,6 @@
 en:
   available_styles: "Styles"
+  dropzone: "Drop files here to upload"
   upload_a_file: "Upload a file"
   insert_one: "Insert one"
   insert_one_tip: "Insert one"
