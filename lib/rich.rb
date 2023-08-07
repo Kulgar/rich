@@ -73,6 +73,7 @@ module Rich
     :removeDialogTabs => 'link:advanced;link:target',
     :startupOutlineBlocks => true,
     :forcePasteAsPlainText => true,
+    :iframe_attributes => { sandbox: "allow-scripts allow-same-origin" },
     :format_tags => 'h3;p;pre',
     :toolbar => [%w(Styles Format Font FontSize), %w(Bold Italic Underline Strike Subscript Superscript),
                  %w(JustifyLeft JustifyCenter JustifyRight JustifyBlock), %w(TextColor BGColor),
