@@ -136,6 +136,7 @@ if Object.const_defined?("SimpleForm")
       # return placeholder image if this is a non-image picker OR if there is no value set
       return editor_options[:placeholder_image] if editor_options[:type].to_s == 'file'
       return editor_options[:placeholder_image] unless method_value.present?
+      return editor_options[:placeholder_image] if rich_file.nil?
 
       if method_value.is_a? Integer
         rich_file.rich_file.url(:rich_thumb) #we ask paperclip directly for the file, so asset paths should not be an issue
