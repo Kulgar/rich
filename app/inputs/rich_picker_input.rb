@@ -190,7 +190,7 @@ if Object.const_defined?("SimpleForm")
         }.html_safe
       end +
       "<div class='rich-image-preview-details'>
-        <div class='rich-image-preview-filename'>#{rich_file.rich_file_file_name if method_value.present?}</div>
+        <div class='rich-image-preview-filename'>#{rich_file.rich_file_file_name if rich_file && method_value.present?}</div>
         <a href='#' class='rich-image-preview-delete delete' title=\"#{I18n.t(:delete)}\">delete</a>
        </div>".html_safe
     end
